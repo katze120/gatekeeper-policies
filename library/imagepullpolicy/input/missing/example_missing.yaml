@@ -37,7 +37,6 @@ spec:
       containers:
       - name: hello-app-drv-py
         image: gcr.io/anthos-appconfig/hello-app-sm-py:v3.0.20
-        imagePullPolicy: Always
         command: ["python"]
         args: [
           "hello_app_sm_py.py",

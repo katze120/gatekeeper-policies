@@ -27,7 +27,7 @@ get_default(object, field, _default) = output {
 }
 
 violation[{"msg": msg, "details": {"image_pull_policy": image_pull_policy}}] {
-	container := input.review.object.spec.containers[_]
+	container := input.review.object.spec.template.spec.containers[_]
 	provided := get_default(container, "imagePullPolicy", "")
 	required := input.parameters.policy
 	required != provided

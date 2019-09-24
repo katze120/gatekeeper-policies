@@ -1,7 +1,4 @@
 # gatekeeper-policies
-Gatekeeper sample policies
-
-# Policies
 
 This repo contains a library of constraint templates and sample constraints for Gatekeeper.
 

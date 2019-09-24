@@ -20,7 +20,7 @@ SHELL := /usr/bin/env bash
 .PHONY: test
 test: ## Test constraint templates via OPA
 	@echo "Running OPA tests..."
-	@opa test -v library/* --explain=notes
+	@bash scripts/test.sh
 
 .PHONY: build_templates
 build_templates: ## Inline Rego rules into constraint templates
