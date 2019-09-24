@@ -1,48 +1,66 @@
-# Copyright 2019 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# 
-# Copyright 2019 Google LLC. This software is provided as-is, 
-# without warranty or representation for any use or purpose.#
-#
-
-
-
-apiVersion: apps/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  name: hello-app-drv-py-1
-  namespace: devtest
+  creationTimestamp: null
+  finalizers:
+  - finalizers.gatekeeper.sh/sync
+  generateName: hello-app-drv-py-1-699bf8d775-
   labels:
     app: hello-app-drv-py-1
+    pod-template-hash: 699bf8d775
     version: v3.0.6
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: hello-app-drv-py-1-699bf8d775
+    uid: 1a789863-deda-11e9-a36a-42010a94005d
+  selfLink: /api/v1/namespaces/devtest/pods/hello-app-drv-py-1-699bf8d775-28csq
 spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: hello-app-drv-py-1
-        version: v3.0.6
-    spec:
-      containers:
-      - name: hello-app-drv-py
-        image: gcr.io/anthos-appconfig/hello-app-sm-py:v3.0.20
-        imagePullPolicy: IfNotPresent
-        command: ["python"]
-        args: [
-          "hello_app_sm_py.py",
-          "hello_app_istio_drv.py",
-         ]
-        env:
-        - name: "PORT"
-          value: "8080"
+  containers:
+  - args:
+    - hello_app_sm_py.py
+    - hello_app_istio_drv.py
+    command:
+    - python
+    env:
+    - name: PORT
+      value: "8080"
+    image: gcr.io/anthos-appconfig/hello-app-sm-py:v3.0.20
+    imagePullPolicy: IfNotPresent
+    name: hello-app-drv-py
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: default-token-n4vr4
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-keshi-acm-test-bad-default-pool-905c38f1-dp4n
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: default-token-n4vr4
+    secret:
+      defaultMode: 420
+      secretName: default-token-n4vr4
+status:
+  phase: Pending
+  qosClass: BestEffort

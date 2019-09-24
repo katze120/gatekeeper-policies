@@ -7,6 +7,6 @@ spec:
   match:
     kinds:
       - apiGroups: [""]
-        kinds: ["Deployment"]
+        kinds: ["Pod"]
   parameters:
     policy: "Always"
