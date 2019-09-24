@@ -1,0 +1,10 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sNoDefaultNamespace
+metadata:
+  name: no-default-namespace
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["*"]
+  parameters: {}
